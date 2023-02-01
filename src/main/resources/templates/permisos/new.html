@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/header :: header" />
+
+<body>
+    <div th:replace="commons/menu :: menu" />
+
+    <div class="container">
+        <main>
+            <div class="row g-5">
+
+                <div class="col-8">
+                    <h4 class="mb-3" th:text="#{vendedor.dato}">Datos Cliente</h4>
+
+                    <form class="needs-validation" method="post" th:action="@{/vendedores/save}" novalidate>
+                        <div class="row g-4">
+                            <div class="col-sm-6">
+                                <label for="nombre" class="form-label" th:text="#{nombre}">Nombre</label>
+
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="" th:value="${vendedor.nombre}" value="" required>
+                                
+                                <div class="invalid-feedback">
+                                    Nombre requerido.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label" th:text="#{apellidos}">Apellidos</label>
+
+                                <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="" th:value="${vendedor.apellidos}" value="" required>
+                                
+                                <div class="invalid-feedback">
+                                    Apellidos requeridos.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="puesto" class="form-label" th:text="#{puesto}">Puesto</label>
+                                
+                                <input type="text" class="form-control" id="puesto" name="puesto" placeholder="" th:value="${vendedor.puesto}" value="" required>
+                                
+                                <div class="invalid-feedback">
+                                    Puesto requerido.
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <div class="col-sm-12">
+                                <div class="btn-group">
+                                    <button class="btn btn-success" type="submit" th:text="#{boton.crear}">Crear</button>
+                                    <a class="btn btn-danger" th:href="@{/vendedores/list}" href="#" role="button" th:text="#{boton.cancelar}">Cancelar</a>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="commons/header :: header" />
+
+<body>
+    <div th:replace="commons/menu :: menu" />
+
+    <div class="container">
+
+        <div class="row">
+            <h3 th:text="#{vendedores.titulo}">Vendedores</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <a th:href="@{/vendedores/create}" class="btn btn-primary btn-sm mb-3" th:text="#{vendedores.nuevo.vendedor}">Nuevo vendedor</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped table-hover">
+                <caption th:text="#{vendedores.listado.titulo}">Lista de vendedores</caption>
+
+                <thead>
+                    <tr>
+                        <th scope="col" th:text="#{codigo}">Código</th>
+                        <th scope="col" th:text="#{nombre}">Nombre</th>
+                        <th scope="col" th:text="#{apellidos}">Apellidos</th>
+                        <th scope="col" th:text="#{puesto}">Puesto</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="vendedor : ${vendedores}">
+                        <th th:text="${vendedor.codigo}" scope="row">1</th>
+                        <td th:text="${vendedor.nombre}">Mark</td>
+                        <td th:text="${vendedor.apellidos}">Mark</td>
+                        <td th:text="${vendedor.puesto}">Mark</td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{/vendedores/edit/}+${vendedor.codigo}" href="#"
+                                role="button"><i class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-danger" th:href="@{/vendedores/delete/}+${vendedor.codigo}" href="#"
+                                role="button"><i class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div th:replace="commons/pagination :: pagination" />
+    </div>
+
+    <div th:replace="commons/footer :: footer" class="container" />
+</body>
+
+</html>
