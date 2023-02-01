@@ -3,7 +3,7 @@ package com.laura.examen.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-//import javax.persistence.ManyToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Grupo {
@@ -12,8 +12,8 @@ public class Grupo {
     private int codigo;
     private String nombre;
 
-    // @ManyToOne
-    // private Usuario usuario;
+    @ManyToOne
+    private Usuario usuario;
 
     public Grupo() {
     }
@@ -43,13 +43,13 @@ public class Grupo {
         this.nombre = nombre;
     }
 
-    // public Usuario getUsuario() {
-    //     return usuario;
-    // }
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-    // public void setUsuario(Usuario usuario) {
-    //     this.usuario = usuario;
-    // } 
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @Override
     public int hashCode() {
