@@ -3,6 +3,7 @@ package com.laura.examen.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+//import javax.persistence.ManyToOne;
 
 @Entity
 public class Grupo {
@@ -10,6 +11,9 @@ public class Grupo {
     @GeneratedValue
     private int codigo;
     private String nombre;
+
+    // @ManyToOne
+    // private Usuario usuario;
 
     public Grupo() {
     }
@@ -39,6 +43,14 @@ public class Grupo {
         this.nombre = nombre;
     }
 
+    // public Usuario getUsuario() {
+    //     return usuario;
+    // }
+
+    // public void setUsuario(Usuario usuario) {
+    //     this.usuario = usuario;
+    // } 
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -59,5 +71,5 @@ public class Grupo {
         if (codigo != other.codigo)
             return false;
         return true;
-    } 
+    }
 }

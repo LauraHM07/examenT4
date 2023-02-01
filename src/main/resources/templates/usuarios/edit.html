@@ -17,23 +17,45 @@
 
                         <div class="row g-4">
                             <div class="col-sm-6">
-                                <label for="nombre" class="form-label">Nombre</label>
+                                <label for="nombre" class="form-label">Descrición</label>
 
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="" th:value="${usuario.nombre}" value="" required>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder=""
+                                    th:value="${usuario.nombre}" value="" required>
 
                                 <div class="invalid-feedback">
-                                    Nombre requerido.
+                                    Descrición requerido.
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
                                 <label for="nombre" class="form-label">Email</label>
 
-                                <input type="text" class="form-control" id="email" name="email" placeholder="" th:value="${usuario.email}" value="" required>
+                                <input type="text" class="form-control" id="email" name="email" placeholder=""
+                                    th:value="${usuario.email}" value="" required>
 
                                 <div class="invalid-feedback">
                                     Email requerido.
                                 </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <table class="table table-striped table-hover">
+                                    <caption>Lista de permisos</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Permisos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="permiso : ${permisos}">
+                                            <td colspan="2">
+                                                <input type="checkbox" name="ck_permisos" th:value="${permiso.codigo}"
+                                                    th:checked="${permiso.isTieneUsuario}" />
+                                                <label th:text="${permiso.descripcion}"></label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                             <hr class="my-4">
@@ -41,9 +63,11 @@
                             <div class="col-sm-12">
                                 <div class="btn-group">
                                     <button class="btn btn-primary" type="submit">Actualizar</button>
-                                    <a class="btn btn-danger" th:href="@{/usuarios/list}" href="#" role="button">Cancelar</a>
+                                    <a class="btn btn-danger" th:href="@{/usuarios/list}" href="#"
+                                        role="button">Cancelar</a>
                                 </div>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>

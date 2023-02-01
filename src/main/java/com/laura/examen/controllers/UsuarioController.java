@@ -1,5 +1,6 @@
 package com.laura.examen.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.laura.examen.model.Usuario;
 import com.laura.examen.services.UsuariosService;
+import com.laura.examen.model.Permiso;
+import com.laura.examen.services.PermisosService;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -25,6 +29,9 @@ public class UsuarioController {
 
     @Autowired
     UsuariosService usuariosService;
+
+    @Autowired
+    PermisosService permisosService;
 
     @Value("${pagination.size}")
     int sizePage;
@@ -81,8 +88,16 @@ public class UsuarioController {
 
         Usuario usuario = usuariosService.findById(codigo);
 
+        List<Permiso> permisos = permisosService.findAll();
+        for(Permiso permiso : permisos) {
+            if(usuario.getPermisos().contains(permiso)) {
+                permiso.setTieneUsuario(true);
+            }
+        }
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("usuario", usuario);
+        modelAndView.addObject("permisos", permisos);
         modelAndView.setViewName("usuarios/edit");
         return modelAndView;
     }
@@ -98,7 +113,20 @@ public class UsuarioController {
     }
 
     @PostMapping(path = { "/update" })
-    public ModelAndView update(Usuario usuario) {
+    public ModelAndView update(Usuario usuario, @RequestParam(value="ck_permisos") int[] ck_permisos) {
+
+        List<Permiso> permisos = usuario.getPermisos();
+
+        if(permisos == null) {
+            permisos = new ArrayList<Permiso>();
+        }
+
+        for(int i : ck_permisos) {
+            Permiso p = new Permiso(i);
+            permisos.add(p);
+        }
+
+        usuario.setPermisos(permisos);
 
         usuariosService.update(usuario);
 

@@ -1,8 +1,12 @@
 package com.laura.examen.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Permiso {
@@ -10,6 +14,12 @@ public class Permiso {
     @GeneratedValue
     private int codigo;
     private String descripcion;
+
+    @Transient 
+    private boolean tieneUsuario;
+
+	@ManyToMany(mappedBy = "permisos")
+    private List<Usuario> usuarios;
 
     public Permiso() {
     }
@@ -37,6 +47,22 @@ public class Permiso {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    } 
+
+    public boolean isTieneUsuario() {
+        return tieneUsuario;
+    }
+
+    public void setTieneUsuario(boolean tieneUsuario) {
+        this.tieneUsuario = tieneUsuario;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     @Override
@@ -59,5 +85,5 @@ public class Permiso {
         if (codigo != other.codigo)
             return false;
         return true;
-    } 
+    }
 }

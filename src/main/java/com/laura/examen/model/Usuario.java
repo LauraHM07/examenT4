@@ -1,8 +1,13 @@
 package com.laura.examen.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Usuario {
@@ -11,6 +16,18 @@ public class Usuario {
     private int codigo;
     private String nombre;
     private String email;
+
+    @ManyToMany
+	@JoinTable(
+		name="usuario_permiso"
+		, joinColumns={
+			@JoinColumn(name="usuario_codigo")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="permiso_codigo")
+			}
+		)
+    private List<Permiso> permisos;
 
     public Usuario() {
     }
@@ -57,6 +74,14 @@ public class Usuario {
         this.email = email;
     }
 
+    public List<Permiso> getPermisos() {
+        return permisos;
+    }
+
+    public void setPermisos(List<Permiso> permisos) {
+        this.permisos = permisos;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -77,5 +102,5 @@ public class Usuario {
         if (codigo != other.codigo)
             return false;
         return true;
-    } 
+    }
 }
