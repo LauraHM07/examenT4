@@ -11,9 +11,9 @@ public interface GruposService {
 
     public Grupo findById(int codigo);
 
-    public void insert(Grupo vendedor);
+    public void insert(Grupo permiso);
 
-    public void update(Grupo vendedor);
+    public void update(Grupo permiso);
 
     public void delete(int codigo);
 }
